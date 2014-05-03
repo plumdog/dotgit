@@ -1,0 +1,18 @@
+[user]
+    name = Andrew Plummer
+    email = plummer574@gmail.com
+[core]
+    editor = emacs
+[color]
+    ui = true
+[push]
+    default = simple
+[alias]
+    undo-commit = reset --soft HEAD^
+    lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
+    undo-pull = reset HEAD@{1}
+    diffc = diff --cached
+    dc = diff --cached
+    d = diff
+    s = status .
+    l = log --graph --oneline --branches
