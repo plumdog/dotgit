@@ -16,3 +16,6 @@
     d = diff
     s = status .
     l = log --graph --oneline --branches
+    ap = add -p
+    cm = commit -m
+    ca = commit --amend
