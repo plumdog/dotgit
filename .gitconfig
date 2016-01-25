@@ -3,10 +3,11 @@
     email = plummer574@gmail.com
 [core]
     editor = emacs
+	pager = less -XFR
 [color]
     ui = true
 [push]
-    default = simple
+	default = current
 [alias]
     undo-commit = reset --soft HEAD^
     lgb = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches
@@ -19,3 +20,5 @@
     ap = add -p
     cm = commit -m
     ca = commit --amend
+    nb = checkout develop -b
+    ch = checkout
