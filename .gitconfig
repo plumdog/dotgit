@@ -20,5 +20,5 @@
     ap = add -p
     cm = commit -m
     ca = commit --amend
-    nb = checkout develop -b
+    nb = checkout master -b
     ch = checkout
