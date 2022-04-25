@@ -1,6 +1,7 @@
 [user]
     name = Andrew Plummer
-    email = plummer574@gmail.com
+    # email not set, must be set per repository
+    signingkey = A9ABACF9C09D6303632A1C1F1ACE8B57D7C5B92B
 [core]
     pager = less -XFR
 [color]
@@ -19,6 +20,7 @@
     ap = add -p
     cm = commit -m
     ca = commit --amend
+    cmns = commit --no-gpg-sign -m
     nb = "!f() { \
       default_branch=$(git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2); \
       git checkout "$default_branch" -b "$1"; \
@@ -36,3 +38,5 @@
 	textconv = sops -d
 [pull]
 	ff = only
+[commit]
+	gpgsign = true
