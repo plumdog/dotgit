@@ -21,6 +21,11 @@
     cm = commit -m
     ca = commit --amend
     cmns = commit --no-gpg-sign -m
+    m = "!f() { \
+      default_branch=$(git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2); \
+      git checkout "$default_branch"; \
+      git pull; \
+    }; f"
     nb = "!f() { \
       default_branch=$(git remote show origin | grep 'HEAD branch' | cut -d ':' -f 2); \
       git checkout "$default_branch" -b "$1"; \
@@ -32,8 +37,43 @@
     pushf = push --force-with-lease
     pf = pushf
     ph = push
+    push-each-commit-since = "!f() { \
+      since=$1; \
+      [[ -n $since ]] || { \
+        >&2 echo "Missing first argument, ref to start from"; \
+        return 1; \
+      }; \
+      shift; \
+      branchName=$(git rev-parse --abbrev-ref HEAD); \
+      git rev-list --reverse "$since"..HEAD | while read commit; do \
+        git push "$@" origin "$commit":"$branchName"; \
+      done; \
+    }; f"
     p = pull
     pr = pull --rebase
+    pull-until-changes = "!pull_until_changes() { \
+      start_commit=$(git rev-parse HEAD); \
+      while true; do \
+        git pull; \
+        commit=$(git rev-parse HEAD); \
+        if [[ $commit != $start_commit ]]; then \
+          echo Pulled in changes: $start_commit '=>' $commit; \
+          break; \
+        fi; \
+        echo 'Waiting...'; \
+        sleep 5; \
+      done; \
+    }; pull_until_changes"
+    ff = merge --ff-only
+    ff-and-push-all = "!f() { \
+      ff_to="$(git rev-parse --abbrev-ref HEAD)"; \
+      for branch in "$@"; do \
+          git checkout "$branch"; \
+          git ff "$ff_to"; \
+          git push; \
+          git checkout -; \
+      done \
+    }; f"
 [diff "sopsdiffer"]
 	textconv = sops -d
 [pull]
@@ -45,3 +85,7 @@
 	required = true
 [commit]
 	gpgsign = true
+[fetch]
+	prune = true
+[init]
+	defaultBranch = main
