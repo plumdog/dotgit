@@ -2,6 +2,7 @@
     name = Andrew Plummer
     # email not set, must be set per repository
     signingkey = A9ABACF9C09D6303632A1C1F1ACE8B57D7C5B92B
+    useConfigOnly = true
 [core]
     pager = less -XFR
 [color]
